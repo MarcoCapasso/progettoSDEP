@@ -1,6 +1,6 @@
 import { UserModel } from "./users";
 import { VeicoloModel } from "./veicolo";
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 const indirizzoConsegna = new mongoose.Schema ({
     nomeConcessionaria: { type: String, required: true },
@@ -10,7 +10,7 @@ const indirizzoConsegna = new mongoose.Schema ({
 })
 
 
-const prodotto = new mongoose.Schema({
+export const prodotto = new mongoose.Schema({
   marca: { type: String, required: true },
   modello: { type: String, required: true },
   immagine: { type: String, required: true },
@@ -24,7 +24,7 @@ const pagamento = new mongoose.Schema({
 })
 
 export const ordineSchema = new mongoose.Schema({
-    id: {type:String},
+    _id: {type:String},
     veicolOrdine: prodotto,
     indirizzoConsegna: indirizzoConsegna,
     utente: UserModel,
@@ -35,3 +35,9 @@ export const ordineSchema = new mongoose.Schema({
 
 export const ordiniModel = mongoose.model('Ordini', ordineSchema);
 
+export interface Prodotto extends Document {
+    marca: string;
+    modello: string;
+    immagine: string;
+    prezzo: number;
+}

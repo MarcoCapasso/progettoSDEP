@@ -30,13 +30,15 @@ export default function Carrello() {
       payload: { ...item, quantità },
     })
   }
-  const checkoutHandler = () => {
-    navigate('/signin?redirect=/spedizione')
-  }
 
   const removeItemHandler = (item: CartItem) => {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item })
   }
+
+  const checkoutHandler = () => {
+    navigate('/accesso?redirect=/spedizione')
+  }
+
   return (
     <div>
       <Helmet>
@@ -83,7 +85,7 @@ export default function Carrello() {
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
-                    <Col md={3}>${item.prezzo}</Col>
+                    <Col md={3}>€{item.prezzo}</Col>
                     <Col md={2}>
                       <Button onClick={() => removeItemHandler(item)} variant={mode}>
                         <FontAwesomeIcon icon={faTrashAlt} />
@@ -102,7 +104,7 @@ export default function Carrello() {
                 <ListGroup.Item>
                   <h3>
                     Subtotale ({prodottiCarrello.reduce((a, c) => a + c.quantità, 0)}{' '}
-                    items) : $
+                    items) : €
                     {prodottiCarrello.reduce((a, c) => a + c.prezzo * c.quantità, 0)}
                   </h3>
                 </ListGroup.Item>

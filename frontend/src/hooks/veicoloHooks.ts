@@ -13,23 +13,24 @@ useQuery({
 })
 
 export const useGetProductDetailsBySlugQuery = (slug: string) =>
-    /*useQuery({
+    useQuery({
         queryKey: ['veicolo', slug], 
         queryFn: async () =>
-            (await apiClient.get<Veicolo>(`/veicolo/slug`)).data,
-    })*/
+            (await apiClient.post<Veicolo>(`/veicolo/${ slug }`)).data,
+    })
 
- /*   useEffect(( ) =>{
-        async function fetchData() {
-            try {
-                const data = (await axios.post('/veicolo/slug', {slug})).data
-            } catch (error) {
-                console.log(error)
-            }
-        }
+    // useEffect(( ) =>{
+    //     async function fetchData() {
+    //         try {
+    //             const data = (await axios.post('/veicolo/slug', {slug})).data
+    //             console.log(data)
+    //         } catch (error) {
+    //             console.log(error)
+    //         }
+    //     }
 
-        fetchData()
-    }, [])
+    //     fetchData()
+    // }, [])
 
-*/
+
     

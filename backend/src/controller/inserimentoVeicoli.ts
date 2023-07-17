@@ -35,7 +35,7 @@ export const inserimentoVeicoli = async (req: express.Request, res: express.Resp
 
 
 export const getVeicoloBySlug1 = async (req: express.Request, res: express.Response) => {
-    const slug = req.body.slug
+    const slug = req.params.slug
     try {
         const veicolo = await getVeicoloBySlug(slug);
         return res.send(veicolo);
@@ -59,6 +59,6 @@ export const getAllVeicolo = async (req: express.Request, res: express.Response)
 
 export default (router: express.Router) => {
     router.get('/veicolo', getAllVeicolo);
-    router.post('/veicolo/slug', getVeicoloBySlug1);
+    router.post('/veicolo/:slug', getVeicoloBySlug1);
     router.post('/veicolo/registrazione', inserimentoVeicoli);
 };

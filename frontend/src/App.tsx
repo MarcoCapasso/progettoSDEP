@@ -60,6 +60,7 @@ function App() {
             </Link>
             {userInfo ? (
               <NavDropdown title={userInfo.nome} id="basic-nav-dropdown">
+                <Link className="dropdown-item" to ="#creaAnnuncio" /*onClick={}*/>Crea Annuncio</Link>
                 <Link className="dropdown-item" to ="#signout" onClick={signoutHandler}>Esci</Link>
               </NavDropdown>
             ) : (

@@ -21,18 +21,22 @@ import Accesso from './pages/Accesso.tsx';
 import Registrazione from './pages/Registrazione.tsx'
 import ShippingAddressPage from './pages/ShippingAddressPage.tsx';
 import PaymentMethodPage from './pages/PaymentMethodPage'
+import ConfermaOrdini from './pages/ConfermaOrdine.tsx'
+import OrderPage from './pages/OrderPage'
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
     <Route index={true} element={<HomePage />}/>
-    <Route path='veicolo/:slug' element={<PaginaVeicolo />} />
-    <Route path="carrello" element={<Carrello />} />
-    <Route path="accesso" element={<Accesso />} />
-    <Route path="registrazione" element={<Registrazione />} />
-    <Route path="spedizione" element={<ShippingAddressPage />} />
-    <Route path="pagamento" element={<PaymentMethodPage />} />
+    <Route path='/veicolo/:slug' element={<PaginaVeicolo />} />
+    <Route path="/carrello" element={<Carrello />} />
+    <Route path="/accesso" element={<Accesso />} />
+    <Route path="/registrazione" element={<Registrazione />} />
+    <Route path="/spedizione" element={<ShippingAddressPage />} />
+    <Route path="/pagamento" element={<PaymentMethodPage />} />
+    <Route path="/confermaOrdine" element={<ConfermaOrdini />} />
+    <Route path="/ordini/:id" element={<OrderPage />} />
       {/*<Route path="dashboard" element={<Dashboard />} /> */}
       {/* ... etc. */}
     </Route>

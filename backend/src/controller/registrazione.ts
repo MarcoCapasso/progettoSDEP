@@ -1,13 +1,15 @@
 import express from 'express';
 import { createUser, getUsersByEmail } from '../db/users';
 
+
+//funzione di accesso, sono necessari due campi: email e password, se uno dei due manca viene restituito errore.
 export const accesso = async (req: express.Request, res: express.Response) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
             return res.sendStatus(400);
         }
-
+//ricerca l'utente attraverso l'email, se non è presente nel database, restituisce errore, altrimenti effettua l'accesso
         const user = await getUsersByEmail(email);
 
         if (!user) {
@@ -49,6 +51,6 @@ export const registrazione = async (req: express.Request, res: express.Response)
 }
 
 export default (router: express.Router) => {
-    router.post('/user/accesso, accesso');
+    router.post('/user/accesso', accesso);
     router.post('/user/registrazione', registrazione);
 };

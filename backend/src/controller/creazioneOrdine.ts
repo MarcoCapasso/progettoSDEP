@@ -1,42 +1,43 @@
 import express, { Request, Response } from 'express'
 import asyncHandler from 'express-async-handler'
 const Ordini = require("../db/ordini")
-import { Prodotto, ordiniModel } from '../db/ordini'
+import { Prodotto, ordiniModel, createOrdini } from '../db/ordini'
 
-export const creazioneOrdine = asyncHandler(async (req: Request, res: Response) => {
-    if (req.body.orderItems.length === 0) {
-      res.status(400).json({ message: 'Il carrello è vuoto.' })
-    } else {
-      const createdOrder = await Ordini.create({
-        orderItems: req.body.orderItems.map((x: Prodotto) => ({ 
-          ...x,
-          product: x.modello,
-        })),
-        shippingAddress: req.body.shippingAddress,
-        paymentMethod: req.body.paymentMethod,
-        itemsPrice: req.body.itemsPrice,
-        shippingPrice: req.body.shippingPrice,
-        taxPrice: req.body.taxPrice,
-        totalPrice: req.body.totalPrice,
-        user: req.body.email
-      })
-      res.status(201).json({ message: 'Ordine completato correttamente', order: createdOrder })
+
+//funzione per la creazione dell'ordine, prende i campi all'interno del corpo della richiesta per inserirli 
+//nella tabella ordine presente nel database
+export const creazioneOrdine =  async (req: express.Request, res: express.Response) => {
+  try{
+    const ordine = await createOrdini({
+      
+      prodotti: req.body.prodotti,
+      indirizzoConsegna: req.body.indirizzoConsegna,
+      metodoPagamento: req.body.metodoPagamento,
+      prezzoTotale: req.body.prezzoTotale,
+      prezzoTasse: req.body.prezzoTasse,
+      prezzoProdotto: req.body.prezzoProdotto,
+      prezzoSpedizione: req.body.prezzoSpedizione,
+      user: req.body.email
+    });
+    res.status(201).json({ message: 'Ordine completato correttamente', order: ordine })
+    //}
+    }catch (error) {
+        console.log(error);
+        return res.sendStatus(400);
     }
-  })
+  }
 
-
-
-export const ordineID =  asyncHandler(async (req: Request, res: Response) => {
-    const order = await ordiniModel.findById(req.params.id)
-    if (order) {
-      res.json(order)
-    } else {
-      res.status(404).json({ message: 'Ordine non trovato' })
-    }
-  })
+ export const ordineID =  asyncHandler(async (req: Request, res: Response) => {
+     const order = await ordiniModel.findById(req.params.id)
+     if (order) {
+       res.json(order)
+     } else {
+       res.status(404).json({ message: 'Ordine non trovato' })
+     }
+   })
 
 
   export default (router: express.Router) => {
-    router.post('/ordine', creazioneOrdine);
-    router.post('/ordine/:id', ordineID);
+    router.post('/ordini', creazioneOrdine);
+    router.post('/ordini/:id', ordineID);
 };

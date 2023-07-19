@@ -21,7 +21,7 @@ export default function PlaceOrderPage() {
   carrello.prezzoProdotto = round2(
     carrello.prodottiCarrello.reduce((a, c) => a + c.quantità * c.prezzo, 0)
   )
-  carrello.prezzoSpedizione = carrello.prezzoProdotto > 100 ? round2(0) : round2(10)
+  carrello.prezzoSpedizione = carrello.prezzoProdotto > 15000 ? round2(0) : round2(100)
   carrello.prezzoTasse = round2(0.15 * carrello.prezzoProdotto)
   carrello.prezzoTotale = carrello.prezzoProdotto + carrello.prezzoSpedizione + carrello.prezzoTasse
 
@@ -30,17 +30,18 @@ export default function PlaceOrderPage() {
   const placeOrderHandler = async () => {
     try {
       const data = await createOrder({
-        orderItems: carrello.prodottiCarrello,
-        shippingAddress: [carrello.indirizzoConsegna],
-        paymentMethod: carrello.metodoPagamento,
-        itemsPrice: carrello.prezzoProdotto,
-        shippingPrice: carrello.prezzoSpedizione,
-        taxPrice: carrello.prezzoTasse,
-        totalPrice: carrello.prezzoTotale,
+        prodotti: carrello.prodottiCarrello,
+        indirizzoConsegna: carrello.indirizzoConsegna,
+        user: userInfo?.email,
+        metodoPagamento: carrello.metodoPagamento,
+        prezzoTotale: carrello.prezzoTotale,
+        prezzoTasse: carrello.prezzoTasse,
+        prezzoSpedizione: carrello.prezzoSpedizione,
+        prezzoProdotto: carrello.prezzoProdotto
       })
       dispatch({ type: 'CART_CLEAR' })
       localStorage.removeItem('prodottiCarrello')
-      navigate(`/ordine/${data.order._id}`)
+      navigate(`/ordini/${data.order._id}`)
     } catch (err) {
       toast.error(getError(err as ApiError))
     }
@@ -65,9 +66,9 @@ export default function PlaceOrderPage() {
             <Card.Body>
               <Card.Title>Spedizione</Card.Title>
               <Card.Text>
-                <strong>Città:</strong> {carrello.indirizzoConsegna.città} <br />
+                <strong>citta:</strong> {carrello.indirizzoConsegna.citta} <br />
                 <strong>Indirizzo: </strong> {carrello.indirizzoConsegna.indirizzo},
-                {carrello.indirizzoConsegna.città}, {carrello.indirizzoConsegna.codicePostale},
+                {carrello.indirizzoConsegna.citta}, {carrello.indirizzoConsegna.codicePostale},
               </Card.Text>
               <Link to="/spedizione">Modifica</Link>
             </Card.Body>
@@ -118,7 +119,7 @@ export default function PlaceOrderPage() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Prodotto</Col>
-                    <Col>€{carrello.prezzoProdotto.toFixed(2)}</Col>
+                    <Col>€{carrello.prezzoProdotto}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import CheckoutSteps from '../component/CheckoutSteps'
 import { Store } from '../Store'
 
-export default function ShippingAddressPage() {
+export default function indirizzoConsegnaPage() {
   const navigate = useNavigate()
   const { state, dispatch } = useContext(Store)
   const {
@@ -21,7 +21,7 @@ export default function ShippingAddressPage() {
 
   const [nome, setNome] = useState(indirizzoConsegna.nome || '')
   const [indirizzo, setIndirizzo] = useState(indirizzoConsegna.indirizzo || '')
-  const [città, setCittà] = useState(indirizzoConsegna.città || '')
+  const [citta, setcitta] = useState(indirizzoConsegna.citta || '')
   const [codicePostale, setCodicePostale] = useState(indirizzoConsegna.codicePostale || '')
 
   const submitHandler = (e: React.SyntheticEvent) => {
@@ -31,7 +31,7 @@ export default function ShippingAddressPage() {
       payload: {
         nome,
         indirizzo,
-        città,
+        citta,
         codicePostale,
       },
     })
@@ -40,7 +40,7 @@ export default function ShippingAddressPage() {
       JSON.stringify({
         nome,
         indirizzo,
-        città,
+        citta,
         codicePostale,
       })
     )
@@ -74,10 +74,10 @@ export default function ShippingAddressPage() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="city">
-            <Form.Label>città</Form.Label>
+            <Form.Label>citta</Form.Label>
             <Form.Control
-              value={città}
-              onChange={(e) => setCittà(e.target.value)}
+              value={citta}
+              onChange={(e) => setcitta(e.target.value)}
               required
             />
           </Form.Group>

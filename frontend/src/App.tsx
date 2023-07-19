@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Navbar, Container, Nav, Button, Badge, NavDropdown } from "react-bootstrap";
+import { Navbar, Container, Nav, Button, Badge, NavDropdown, DropdownButton } from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -8,6 +8,7 @@ import { Store } from "./Store";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import './index.css'
 
 library.add(faSun, faMoon);
 
@@ -59,14 +60,14 @@ function App() {
               )}
             </Link>
             {userInfo ? (
-              <NavDropdown title={userInfo.nome} id="basic-nav-dropdown">
-                <Link className="dropdown-item" to ="#creaAnnuncio" /*onClick={}*/>Crea Annuncio</Link>
-                <Link className="dropdown-item" to ="#signout" onClick={signoutHandler}>Esci</Link>
+              <NavDropdown title={userInfo.nome} id="dropdown-button-drop-start" align="end">
+                {userInfo.isAdmin && (
+                  <Link className="dropdown-item" to="/Dashboard">Registro Ordini</Link>
+                )}
+                <Link className="dropdown-item" to="#signout" onClick={signoutHandler}>Esci</Link>
               </NavDropdown>
             ) : (
-              <Link className="nav-link" to ="/accesso">
-                Accedi
-              </Link>
+              <Link className="nav-link" to="/accesso">Accedi</Link>
             )}
           </Nav>
         </Navbar>

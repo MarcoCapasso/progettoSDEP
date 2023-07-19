@@ -95,7 +95,7 @@ function reducer(state: AppState, action: Action): AppState {
                     prodottiCarrello: [],
                     metodoPagamento: 'Finanziamento',
                     indirizzoConsegna: {
-                        città: '',
+                        citta: '',
                         codicePostale: '',
                         nome: '',
                         indirizzo: '',

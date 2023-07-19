@@ -1,18 +1,18 @@
 export type CartItem = {
-    immagine: string | undefined
+    immagine: string 
     slug: string
-    quantità: number    
-    prezzo: number
     _id: string
     marca: string
     modello: string
+    prezzo: number
+    quantità: number 
 }
 
 
 export type indirizzoConsegnaConcessionaria = {
     nome: string
     indirizzo: string
-    città: string
+    citta: string
     codicePostale: string
 }
 

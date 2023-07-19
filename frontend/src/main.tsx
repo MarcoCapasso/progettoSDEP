@@ -23,6 +23,7 @@ import ShippingAddressPage from './pages/ShippingAddressPage.tsx';
 import PaymentMethodPage from './pages/PaymentMethodPage'
 import ConfermaOrdini from './pages/ConfermaOrdine.tsx'
 import OrderPage from './pages/OrderPage'
+import RegistroOrdini from './pages/RegistroOrdini.tsx'
 
 
 const router = createBrowserRouter(
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
     <Route path="/pagamento" element={<PaymentMethodPage />} />
     <Route path="/confermaOrdine" element={<ConfermaOrdini />} />
     <Route path="/ordini/:id" element={<OrderPage />} />
+    <Route path="/Dashboard" element={<RegistroOrdini />} />
       {/*<Route path="dashboard" element={<Dashboard />} /> */}
       {/* ... etc. */}
     </Route>

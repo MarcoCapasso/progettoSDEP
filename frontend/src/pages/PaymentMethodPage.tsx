@@ -12,7 +12,7 @@ export default function metodoPagamentoPage() {
     carrello: { indirizzoConsegna, metodoPagamento },
   } = state
 
-  const [paymentMethodName, setPaymentMethodName] = useState(
+  const [metodoPagamentoName, setmetodoPagamentoName] = useState(
     metodoPagamento || 'Finanziamento'
   )
   useEffect(() => {
@@ -23,8 +23,8 @@ export default function metodoPagamentoPage() {
 
   const submitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    dispatch({ type: 'SAVE_PAYMENT_METHOD', payload: paymentMethodName })
-    localStorage.setItem('metodoPagamento', paymentMethodName)
+    dispatch({ type: 'SAVE_PAYMENT_METHOD', payload: metodoPagamentoName })
+    localStorage.setItem('metodoPagamento', metodoPagamentoName)
     navigate('/confermaOrdine')
   }
   return (
@@ -42,8 +42,8 @@ export default function metodoPagamentoPage() {
               id="Finanziamento"
               label="Finanziamento"
               value="Finanziamento"
-              checked={paymentMethodName === 'Finanziamento'}
-              onChange={(e) => setPaymentMethodName(e.target.value)}
+              checked={metodoPagamentoName === 'Finanziamento'}
+              onChange={(e) => setmetodoPagamentoName(e.target.value)}
             />
           </div>
           <div className="mb-3">
@@ -52,8 +52,8 @@ export default function metodoPagamentoPage() {
               id="Carta di debito"
               label="Carta di debito"
               value="Carta di debito"
-              checked={paymentMethodName === 'Carta di debito'}
-              onChange={(e) => setPaymentMethodName(e.target.value)}
+              checked={metodoPagamentoName === 'Carta di debito'}
+              onChange={(e) => setmetodoPagamentoName(e.target.value)}
             />
           </div>
           <div className="mb-3">

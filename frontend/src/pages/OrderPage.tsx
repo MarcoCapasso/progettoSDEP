@@ -16,8 +16,7 @@ export default function OrderPage() {
   const params = useParams()
   const { id: orderId } = params
 
-  const { data: order, isLoading, error } = useGetOrderDetailsQuery(orderId!)
-
+  const { data: order ,isLoading, error } = useGetOrderDetailsQuery(orderId!)
   return isLoading ? (
     <LoadingBox></LoadingBox>
   ) : error ? (
@@ -27,18 +26,18 @@ export default function OrderPage() {
   ) : (
     <div>
       <Helmet>
-        <title>Ordine {orderId}</title>
+        <title>Ordine #{orderId}</title>
       </Helmet>
-      <h1 className="my-3">Ordine {orderId}</h1>
+      <h1 className="my-3">Ordine #{orderId}</h1>
       <Row>
         <Col md={8}>
           <Card className="mb-3">
             <Card.Body>
               <Card.Title>Spedizione</Card.Title>
               <Card.Text>
-                <strong>Città:</strong> {order.shippingAddress.città} <br />
-                <strong>Indirizzo: </strong> {order.shippingAddress.indirizzo},
-                {order.shippingAddress.codicePostale}
+                <strong>città:</strong> {order.indirizzoConsegna.citta} <br />
+                <strong>Indirizzo: </strong> {order.indirizzoConsegna.indirizzo},
+                {order.indirizzoConsegna.codicePostale}
               </Card.Text>
               {order.isDelivered ? (
                 <MessageBox variant="success">
@@ -54,14 +53,14 @@ export default function OrderPage() {
             <Card.Body>
               <Card.Title>Pagamento</Card.Title>
               <Card.Text>
-                <strong>Method:</strong> {order.paymentMethod}
+                <strong>Metodo di pagamento:</strong> {order.metodoPagamento}
               </Card.Text>
               {order.isPaid ? (
                 <MessageBox variant="success">
-                  Paid at {order.paidAt}
+                  Pagato{order.paidAt}
                 </MessageBox>
               ) : (
-                <MessageBox variant="warning">Not Paid</MessageBox>
+                <MessageBox variant="warning">Non pagato</MessageBox>
               )}
             </Card.Body>
           </Card>
@@ -70,7 +69,7 @@ export default function OrderPage() {
             <Card.Body>
               <Card.Title>Items</Card.Title>
               <ListGroup variant="flush">
-                {order.orderItems.map((item) => (
+                {order.prodotti.map((item) => (
                   <ListGroup.Item key={item._id}>
                     <Row className="align-items-center">
                       <Col md={6}>
@@ -95,33 +94,33 @@ export default function OrderPage() {
         <Col md={4}>
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Order Summary</Card.Title>
+              <Card.Title>Resoconto</Card.Title>
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
-                    <Col>Items</Col>
-                    <Col>${order.itemsPrice.toFixed(2)}</Col>
+                    <Col>Veicolo</Col>
+                    <Col>€{order.prezzoProdotto.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Shipping</Col>
-                    <Col>${order.shippingPrice.toFixed(2)}</Col>
+                    <Col>Spedizione</Col>
+                    <Col>€{order.prezzoSpedizione.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Tax</Col>
-                    <Col>${order.taxPrice.toFixed(2)}</Col>
+                    <Col>Tasse</Col>
+                    <Col>€{order.prezzoTasse.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>
-                      <strong> Order Total</strong>
+                      <strong>Totale</strong>
                     </Col>
                     <Col>
-                      <strong>${order.totalPrice.toFixed(2)}</strong>
+                      <strong>€{order.prezzoTotale.toFixed(2)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

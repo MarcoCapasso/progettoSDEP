@@ -1,19 +1,13 @@
 import { CartItem, indirizzoConsegnaConcessionaria } from './carrello'
 import { User } from './User'
 
-export type Order = {
-  _id: string
-  orderItems: CartItem[]
-  shippingAddress: indirizzoConsegnaConcessionaria
-  paymentMethod: string
-  user: User
-  createdAt: string
-  isPaid: boolean
-  paidAt: string
-  isDelivered: boolean
-  deliveredAt: string
-  itemsPrice: number
-  shippingPrice: number
-  taxPrice: number
-  totalPrice: number
+export type Order ={
+  _id: string,
+  prodotti: CartItem[],
+  indirizzoConsegna: indirizzoConsegnaConcessionaria,
+  prezzoTotale: number,
+  prezzoProdotto: number,
+  prezzoTasse: number,
+  prezzoSpedizione: number,
+  user: String
 }

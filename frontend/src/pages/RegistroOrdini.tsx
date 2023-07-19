@@ -8,6 +8,9 @@ import { getError } from '../utils'
 import { ApiError } from '../types/ApiError'
 import { Store } from "./Store";
 import { useContext, useEffect } from 'react'
+import apiClient from '../apiClient'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 export default function OrderHistoryPage() {
   const navigate = useNavigate()
@@ -22,6 +25,13 @@ export default function OrderHistoryPage() {
       window.location.href = "/accesso";
     }
   }, []);
+
+  const deleteOrder = (id: string) => async () => {
+    if (window.confirm('Sei sicuro di voler eliminare questo ordine?')) {
+      await apiClient.delete(`/ordini/` + id)
+      window.location.reload()
+    }
+  }
 
   return (
     <div>
@@ -68,7 +78,16 @@ export default function OrderHistoryPage() {
                   >
                     Dettagli
                   </Button>
+
+                  <Button className="ms-2"
+                    type="button"
+                    variant="light"
+                    onClick={deleteOrder(order._id)}
+                  >
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </Button>
                 </td>
+                
               </tr>
             ))}
           </tbody>

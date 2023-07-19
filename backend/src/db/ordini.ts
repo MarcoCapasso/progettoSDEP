@@ -52,3 +52,4 @@ export interface Prodotto extends Document {
 
 export const createOrdini = (values: Record<string, any>) => new ordiniModel(values).save().then((ordini) => ordini.toObject());
 export const getOrdini = () => ordiniModel.find({})
+export const deleteOrdine = (id: string) => ordiniModel.findByIdAndDelete(id)
